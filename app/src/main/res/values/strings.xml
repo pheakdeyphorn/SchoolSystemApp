@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">SchoolSystemApp</string>
+
+    <!-- Welcome Screen -->
+    <string name="welcome_icon_description">Welcome Icon</string>
+    <string name="welcome_title">Welcome!</string>
+    <string name="login_as_teacher">Login as Teacher</string>
+    <string name="login_as_student">Login as Student</string>
+    <string name="no_account_yet">Don\'t have an account yet?</string>
+    <string name="sign_up">Sign up</string>
+
+    <!-- Login Screen -->
+    <string name="back_button_description">Back</string>
+    <string name="login_title">Login</string>
+    <string name="sign_in_to_classroom">Sign in to classroom</string>
+    <string name="login_instructions">Please enter your information below in order to login to your account.</string>
+    <string name="email_label">Email</string>
+    <string name="email_placeholder">yourname1234@gmail.com</string>
+    <string name="password_label">Password</string>
+    <string name="password_placeholder">123456789</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="log_in">Log in</string>
+    <string name="or_continue_with">or Continue with</string>
+    <string name="sign_up_with_google">Sign Up With Google</string>
+
+    <!-- Sign Up Screen -->
+    <string name="sign_up_title">Sign Up</string>
+    <string name="signup_instructions">Please enter your information below in order to register for an account.</string>
+    <string name="username_label">Username</string>
+    <string name="full_name_placeholder">e.g. John Doe</string>
+    <string name="email_placeholder_signup">yourname@example.com</string>
+    <string name="confirm_password_label">Confirm password</string>
+</resources>
