@@ -1,14 +1,18 @@
 plugins {
-    // Standard Android Application plugin
+    // 1. Standard Android Application plugin
     id("com.android.application")
 
-    // Kotlin Android plugin
+    // 2. Kotlin Android plugin
     kotlin("android")
 
-    // Hilt Kapt/KSP and Plugin for dependency injection
+    // 3. Kapt (Kotlin Annotation Processing Tool) for Hilt
     kotlin("kapt")
+
+    // 4. Hilt Gradle Plugin for dependency injection setup
     alias(libs.plugins.hilt)
-    // KTX plugins (e.g., ViewModels, LiveData)
+
+    // 5. Google Services plugin for Firebase configuration
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -50,44 +54,66 @@ android {
 }
 
 dependencies {
-    // --- CORE AND UI ---
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.constraintlayout)
 
-    // --- FRAGMENTS AND NAVIGATION (Essential for XML approach) ---
-    // Fragment KTX for easy transaction/ViewModel access
-    implementation("androidx.fragment:fragment-ktx:1.7.1")
-    // Navigation Component - Fragment support
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
-    // Navigation Component - UI support
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+    // --- NAVIGATION COMPONENT ---
+    // Fragment KTX provides extension functions for Fragments
+    implementation(libs.androidx.fragment.ktx)
+    // Safe Args plugin should be used if you need type-safe argument passing
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
-    // --- ARCHITECTURE COMPONENTS (LifeCycle and ViewModel) ---
-    // ViewModel utilities for Compose (optional, but good practice)
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
-    // LiveData KTX (Essential for observing ViewModel LiveData in Fragments)
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.0")
+    // --- LIFECYCLE, LIVEDATA, AND VIEWMODEL ---
+    // ViewModel KTX provides the viewModels() delegate
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    // LiveData KTX (for observing ViewModel LiveData in Fragments)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
     // If you need lifecycle-aware Coroutines
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
-
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 
     // --- HILT DEPENDENCY INJECTION ---
-    implementation(libs.hilt.android.v2511) // Use your actual Hilt version
-    kapt(libs.hilt.android.compiler) // Use your actual Hilt version
+    // Hilt core dependency
+    implementation(libs.hilt.android)
+    // Hilt annotation processor (use kapt with Hilt)
+    kapt(libs.hilt.compiler)
 
     // Hilt integration with Navigation/Fragments
-    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
+    implementation(libs.androidx.hilt.navigation.fragment)
 
     // --- COROUTINES (for async operations in Repository and ViewModel) ---
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    // Core coroutine libraries
+    implementation(libs.kotlinx.coroutines.core)
+    // Android-specific coroutine extensions
+    implementation(libs.kotlinx.coroutines.android)
+
+    // --- FIREBASE DEPENDENCIES ---
+
+    // 1. FIREBASE PLATFORM: Manages all Firebase versions consistently
+    // This assumes you defined a firebase-bom version in your libs.versions.toml
+    implementation(platform(libs.firebase.bom))
+
+    // 2. FIREBASE AUTHENTICATION DEPENDENCY
+    implementation(libs.firebase.auth)
+
+    // 3. CLOUD FIRESTORE DEPENDENCY (The Database)
+    implementation(libs.firebase.firestore)
+
+    // 4. GOOGLE SIGN-IN DEPENDENCY (for the Google Button)
+    // This is required for integrating Google Sign-In, often used with Firebase Auth
+    implementation(libs.play.services.auth)
+
 
     // --- TESTING ---
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+    // Hilt Android Testing
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.compiler)
 }
 
 // Apply kapt at the end for annotation processing
